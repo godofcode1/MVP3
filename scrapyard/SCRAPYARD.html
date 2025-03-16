@@ -65,33 +65,32 @@
 <body>
     <div class="container">
         <div class="title">Application Inutile</div>
-        <div class="message" id="message">🎉 Félicitations, tu as téléchargé une application inutile. Bravo ! 🎉</div>
+        <div class="message" id="message">🎉 Félicitations, tu viens d'ouvrir une appli 100% inutile. Bravo, champion. 🎉</div>
         <button class="button" id="clickButton">Ne clique pas !</button>
     </div>
 
-    <!-- Audio for Self-Destruction -->
     <audio id="destructionSound" src="destruction-sound.mp3" preload="auto"></audio>
 
     <script>
         let clickCount = 0;
         const messages = [
-            "🎉 Félicitations, tu as ouvert le site web le plus inutile au monde. Bravo ! 🎉",
-            "🤔 Pourquoi tu cliques encore ?",
-            "🎉 Félicitations, tu as gaspillé 30 secondes de ta vie, continue comme ça ! 🎉",
-            "😩 Tu ne veux vraiment pas t'arrêter, hein ?",
-            "🙄 Tu aimes souffrir ou quoi ?",
-            "😵 Ça devient gênant...",
-            "💀 Ok, tu gagnes, mais à quel prix ?",
-            "😂 Sérieusement, tu n'as pas encore arrêté ?",
-            "😑 C'est pas un peu gênant de cliquer comme ça ?",
-            "😭 Tu as vraiment besoin de ça ?",
-            "🤡 Tu es officiellement la personne la plus patiente du monde.",
-            "😬 C’est gênant, mais bon...",
-            "💀 Tu veux que j’appelle à l’aide ?",
-            "😩 Sérieusement, pourquoi tu fais ça ?",
-            "😑 Tu veux pas plutôt aller te promener ?",
+            "🎉 Bravo, tu viens de gaspiller ta première seconde ici !",
+            "🤔 Un clic de plus ? Tu es sûr que ça vaut le coup ?",
+            "😂 Ça te fait rire de cliquer comme ça ?",
+            "😩 Tu dois vraiment être en manque de distractions...",
             "🙄 J’espère que tu es fier de toi...",
-            "😵 Il est encore temps d’arrêter..."
+            "😵 C’est le genre de moment où il faut repenser sa vie.",
+            "💀 À ce stade, tu devrais peut-être consulter un psy.",
+            "🤣 Tu t’es inscrit à une compétition de clics ou quoi ?",
+            "😑 Tu veux que je fasse apparaître un monstre pour toi ?",
+            "😭 Tu penses qu’il y a une récompense à la fin ?",
+            "🤡 Spoiler : Il n’y en a pas.",
+            "😬 J’espère que tu ne fais pas ça en public...",
+            "💀 Sérieusement, ça devient inquiétant.",
+            "😩 Tu devrais peut-être aller boire un verre d’eau.",
+            "😑 Je vais appeler ta mère si tu continues.",
+            "🙄 À ce stade, tu mérites un diplôme en bêtise appliquée.",
+            "😵 Je crois que tu es officiellement en train de perdre la tête."
         ];
 
         const messageElement = document.getElementById('message');
@@ -110,11 +109,10 @@
         }
 
         function startSelfDestruction() {
-            // Cache le bouton "Ne clique pas !" et montre un message d'erreur
             buttonElement.style.display = 'none';
-            showErrorPopUp("Erreur fatale : Tu as déclenché l'auto-destruction!");
+            showErrorPopUp("Erreur fatale : Tu as déclenché l'auto-destruction !");
 
-            destructionSound.play(); // Play sound when self-destruction starts
+            destructionSound.play(); 
             let countdownTime = 10;
             const countdownInterval = setInterval(function() {
                 messageElement.innerHTML = `💀 Auto-destruction dans <span class="countdown">${countdownTime}</span> secondes...`;
@@ -126,11 +124,10 @@
                 }
             }, 1000);
 
-            // Prolonger la durée du son à 15 secondes
             setTimeout(function() {
                 destructionSound.pause();
                 destructionSound.currentTime = 0;
-            }, 15000); // 15 secondes de son
+            }, 15000); 
         }
 
         function showErrorPopUp(message) {
@@ -140,13 +137,13 @@
             document.body.appendChild(popUp);
             setTimeout(() => {
                 popUp.style.display = 'none';
-            }, 3000); // Ferme le pop-up après 3 secondes
+            }, 3000);
         }
 
         function showExitMessage() {
             messageElement.textContent = "Désolé... C'était juste un moyen de te faire partir. Allez, à bientôt !";
             setTimeout(function() {
-                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Rickroll !
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
             }, 2000);
         }
     </script>
