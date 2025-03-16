@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Impossible</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            position: relative;
+            background-image: url('https://i.pinimg.com/originals/45/d0/c5/45d0c5951be9b18ed950e25d2a672c0e.gif');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #ff5722;
+            margin-bottom: 20px;
+            animation: fadeIn 3s ease-out;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 22px;
+            background-color: #ff5722;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            position: absolute;
+            transition: transform 0.1s ease-in-out;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #e64a19;
+            animation: shake 0.5s ease infinite;
+        }
+
+        .meme {
+            margin-top: 30px;
+            font-size: 1.2em;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .countdown {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff5722;
+            margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bienvenue sur la page impossible !</h1>
+    <button id="dodgingBtn">Tu veux vraiment cliquer ici ?</button>
+    <div class="meme">"Tu pensais vraiment pouvoir partir ?"</div>
+    <div id="countdown" class="countdown">Tu as 10 secondes avant de pouvoir partir... HAHA</div>
+</div>
+
+<script>
+    const button = document.getElementById("dodgingBtn");
+    const meme = document.querySelector(".meme");
+    const countdownDisplay = document.getElementById("countdown");
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let countdown = 10;
+
+    const moveSpeed = 0.2;  // Réduire cette valeur pour un mouvement plus fluide
+
+    // Effet sonore lors du survol du bouton
+    const sound = new Audio('https://www.soundjay.com/button/beep-07.wav');
+    button.addEventListener('mouseover', () => {
+        sound.play();
+    });
+
+    // Suivi plus précis du curseur
+    function dodgeButton(event) {
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        // Calculer la direction du mouvement
+        const deltaX = mouseX - currentX;
+        const deltaY = mouseY - currentY;
+
+        // Calculer la distance entre le curseur et le bouton
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (distance < 150) {
+            // Le bouton s'éloigne si trop près du curseur
+            targetX = currentX + (Math.random() - 0.5) * 100;
+            targetY = currentY + (Math.random() - 0.5) * 100;
+        } else {
+            // Sinon, suivre le curseur plus lentement
+            targetX = mouseX;
+            targetY = mouseY;
+        }
+    }
+
+    // Animation fluide pour suivre le curseur
+    function animate() {
+        // Déplacement en douceur vers la cible
+        const deltaX = targetX - currentX;
+        const deltaY = targetY - currentY;
+
+        currentX += deltaX * moveSpeed;
+        currentY += deltaY * moveSpeed;
+
+        button.style.transform = `translate(${currentX - button.offsetWidth / 2}px, ${currentY - button.offsetHeight / 2}px)`;
+
+        requestAnimationFrame(animate);
+    }
+
+    document.addEventListener('mousemove', dodgeButton);
+
+    // Lancer l'animation du bouton
+    animate();
+
+    // Messages moqueurs qui changent toutes les 5 secondes
+    const memes = [
+        "Tu crois vraiment que tu peux partir ?",
+        "Non, non, non... Pas si vite !",
+        "Tu veux quitter ? Bonne chance avec ça !",
+        "Tu t'es fait avoir, mon pote !",
+        "Pense encore à partir, je t'attends...",
+        "Non, tu ne peux pas quitter... T'essaies de m'avoir ?",
+        "Désolé, mais cette page t'a capturé. Pas d'échappatoire.",
+        "Tu ne peux pas partir maintenant... on est juste devenus amis !"
+    ];
+
+    setInterval(() => {
+        meme.textContent = memes[Math.floor(Math.random() * memes.length)];
+    }, 5000);
+
+    // Compte à rebours avant la possibilité de quitter
+    setInterval(() => {
+        if (countdown > 0) {
+            countdownDisplay.textContent = `Tu as ${countdown--} secondes avant de pouvoir partir... HAHA`;
+        } else {
+            countdownDisplay.textContent = "Tu as gagné ! Tu peux partir maintenant... ou pas !";
+        }
+    }, 1000);
+
+</script>
+
+</body>
+</html>

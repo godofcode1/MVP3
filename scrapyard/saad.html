@@ -1,0 +1,17 @@
+function startSelfDestruction() {
+    buttonElement.disabled = true;
+    let countdownTime = 10;
+    const countdownInterval = setInterval(function() {
+        messageElement.innerHTML = `💀 Auto-destruction dans <span class="countdown">${countdownTime}</span> secondes...`;
+        if (countdownTime <= 5) {
+            openCmdWindows();
+        }
+        countdownTime--;
+        if (countdownTime < 0) {
+            clearInterval(countdownInterval);
+            setTimeout(() => {
+                window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Rickroll!
+            }, 2000);
+        }
+    }, 1000);
+}
